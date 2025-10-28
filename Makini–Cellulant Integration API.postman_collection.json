@@ -1,0 +1,201 @@
+{
+	"info": {
+		"_postman_id": "f3f5b4af-57e4-4595-952e-9b2ee4af2351",
+		"name": "Makini–Cellulant Integration API",
+		"description": "REST APIs for validating students and receiving payment notifications between Makini University and Cellulant (Mock DB version)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28066032"
+	},
+	"item": [
+		{
+			"name": "Health Check",
+			"item": [
+				{
+					"name": "Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/health",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"health"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Verify API service is running"
+		},
+		{
+			"name": "Student Validation",
+			"item": [
+				{
+					"name": "Students",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/students",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"students"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specific Student",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/students/ST002",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"students",
+								"ST002"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Students",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n         \r\n            \"firstName\": \"Jayden \",\r\n            \"lastName\": \"Dalvins\",\r\n            \"year\": 5,\r\n            \"gender\": \"male\"\r\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/students/ST002",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"students",
+								"ST002"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New Student",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"student_id\": \"ST003\",\r\n  \"first_name\": \"Paul\",\r\n  \"last_name\": \"Kamau\",\r\n  \"email\": \"pk@gmail.com\",\r\n  \"program\": \"Computer Science\",\r\n  \"year\": 2,\r\n  \"balance\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/students",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"students"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Allow Cellulant to validate if a student exists"
+		},
+		{
+			"name": "Payment Notifications",
+			"item": [
+				{
+					"name": "Webhooks Payments",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"transaction_id\": \"TX1221136\",\r\n  \"student_id\": \"ST004\",\r\n  \"amount\": 10000,\r\n  \"method\": \"MPESA\",\r\n  \"timestamp\": \"2025-10-24T10:00:00Z\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/webhooks/payments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"webhooks",
+								"payments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
