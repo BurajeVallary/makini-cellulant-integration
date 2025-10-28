@@ -1,0 +1,12 @@
+const path = require('path');
+const Database = require('better-sqlite3');
+const dbPath = process.env.SQLITE_DB_PATH || path.join(__dirname, '..', 'makini.db');
+const db = new Database(dbPath);
+console.log('DB path:', dbPath);
+const cols = db.prepare("PRAGMA table_info('students')").all();
+console.log('students table columns:');
+cols.forEach(c => console.log(`- ${c.name} (${c.type})`));
+console.log('\nSample rows (up to 5):');
+const rows = db.prepare('SELECT * FROM students LIMIT 5').all();
+console.log(rows);
+db.close();
