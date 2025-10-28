@@ -85,6 +85,17 @@ The server will start at `http://localhost:3000` by default.
 
 ##  API Documentation
 
+You can explore and test the Makini–Cellulant Integration endpoints directly using Postman:
+
+👉 [View Full API Documentation on Postman](https://documenter.getpostman.com/view/28066032/2sB3WmThhK#7d0be731-640b-4dfb-83a8-2298c0742aa2)
+
+Endpoints covered:
+- `GET /health` – Check service health
+- `GET /students` – Fetch all enrolled students
+- `POST /students/validate` – Validate student existence
+- `POST /webhooks/payments` – Record payment and update student balance
+
+
 ### Base URL
 
 All API endpoints are prefixed with `/api`
