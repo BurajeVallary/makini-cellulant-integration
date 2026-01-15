@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 const { errorHandler, ApiError, ValidationError } = require('./middleware/errorHandler');
 const healthRoutes = require('./routes/health');
 const studentRoutes = require('./routes/students');
@@ -28,22 +29,34 @@ app.use((req, res, next) => {
   next();
 });
 
-
-// Routes
+// API Routes
 app.use('/api/health', healthRoutes);
 app.use('/api/students', studentRoutes);
 app.use('/api/webhooks', webhookRoutes);
 
+// Serve static files from public directory (after API routes)
+app.use(express.static('public'));
+
+// Serve index.html for root path
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+});
+
 // 404 handler
 app.use((req, res) => {
-  res.status(404).json({ 
-    status: 'error',
-    message: 'Not Found',
-    error: {
-      statusCode: 404,
-      message: 'The requested resource was not found on this server.'
-    }
-  });
+  if (req.path.startsWith('/api/')) {
+    // API route 404 - return JSON
+    return res.status(404).json({ 
+      status: 'error',
+      message: 'Not Found',
+      error: {
+        statusCode: 404,
+        message: 'The requested resource was not found on this server.'
+      }
+    });
+  }
+  // Non-API route 404 - could serve a 404 page or redirect to home
+  res.status(404).sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 
 // Error handling middleware

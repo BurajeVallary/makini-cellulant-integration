@@ -171,7 +171,7 @@ function viewDatabase() {
      
       if (count.count > 0) {
         console.log('\nSample data:');
-        const rows = db.prepare(`SELECT * FROM ${table.name} LIMIT 5`).all();
+        const rows = db.prepare(`SELECT * FROM ${table.name} LIMIT 10`).all();
         rows.forEach(row => {
           console.log(row);
         });
